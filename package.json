@@ -1,0 +1,23 @@
+{
+  "name": "ichigo-backend",
+  "version": "1.0.0",
+  "description": "Backend challenge for a position at Ichigo",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch",
+    "start": "pm2-runtime start ecosystem.config.js",
+    "dev": "nodemon start app/index.js"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "author": "Ashraf Mohamed",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "jest": "^28.1.0",
+    "nodemon": "^2.0.16"
+  }
+}

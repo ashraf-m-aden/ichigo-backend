@@ -1,0 +1,77 @@
+[
+  {
+    "id": "2",
+    "rewards": [
+      {
+        "availableAt": "2023-04-16T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2023-04-17T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2023-04-17T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2023-04-18T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2023-04-18T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2023-04-19T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2023-04-19T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2023-04-20T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2023-04-20T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2023-04-21T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2023-04-21T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2023-04-22T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2023-04-22T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2023-04-23T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2021-04-18T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2021-04-19T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2021-04-19T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2021-04-20T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2021-04-20T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2021-04-21T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2021-04-21T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2021-04-22T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2021-04-22T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2021-04-23T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2021-04-23T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2021-04-24T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2021-04-24T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2021-04-25T00:00:00.000Z"
+      }
+    ]
+  }
+]
