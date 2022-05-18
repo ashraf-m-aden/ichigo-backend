@@ -19,7 +19,7 @@ function checkIfUserExist(idUser, date) {   // this function check if the user e
         }
     });
     if (userExist) {
-     return   checkRewardExist(user, date)
+        return checkRewardExist(user, date)
     } else
         return createUser(idUser, date)  // if do not find the user at all creat the user and send back the rewards
 
@@ -28,19 +28,19 @@ function checkIfUserExist(idUser, date) {   // this function check if the user e
 function checkRewardExist(user, date) {  // we check if the reward exist, this function is called if the user exist
     let rewardExist = false
     user.rewards.forEach((reward) => {
-        if (reinitializeToMidnight(reward.availableAt) == reinitializeToMidnight(date)) {
+        if (reinitializeToMidnight(reward.availableAt) == reinitializeToMidnight(date)) {  // we look into the dates to see if we have a match
             rewardExist = true
         }
     });
     if (rewardExist) { // if we find the date we return the user
-        return getRewards(date)
+        return getRewards(date)  // this function get the rewards 
     } else {
         // if we do not find it we generate the rewards and we add to the user data
         const newRewards = createRewards(date)
         newRewards.forEach(async reward => {
             await user.rewards.push(reward)
         });
-        users = JSON.stringify(users, null, 2);   // stringigy the json to save it in the local file
+        users = JSON.stringify(users, null, 2);   // stringigy the users data to save it in the local file
         fs.writeFileSync('app/storage/users.json', users)  // save the data to the local json file
         return newRewards  // return the rewards once saved
     }
@@ -64,7 +64,7 @@ function createRewards(date) {  // this function create all the rewards in the s
     return getRewards(date)   // return the final week
 }
 
-function getRewards(date){
+function getRewards(date) {
     let dateArray = []  // prepare array for the rewards
 
     let dayOfTheWeek = new Date(date).getDay() // retrieve the day of the week of the searched rewards
