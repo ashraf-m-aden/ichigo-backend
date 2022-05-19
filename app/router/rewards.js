@@ -21,6 +21,7 @@ router.patch('/users/:id/rewards/:date/redeem', async (req, res) => {   //  try 
 
         const result = await startRedeeming(req.params.id, req.params.date)
 
+        console.log('result ' + result);
         res.status(200).send({ data: result }) // send back the result
 
     } catch (error) {

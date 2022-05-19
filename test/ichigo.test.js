@@ -79,7 +79,7 @@ test('should check if user exists and retrieve its rewards', () => {
 })
 
 test('should get the rewards', () => {
-    const rewards = getReward(0, 4, testDate)
+    const rewards = getReward(1, 4, testDate)
 
     expect(rewards).toEqual(data)
 })
