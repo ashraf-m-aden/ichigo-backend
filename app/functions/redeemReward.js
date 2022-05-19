@@ -1,11 +1,11 @@
 'use strict';
 
 const fs = require('fs')
-const { checkIfUserExist, reinitializeToMidnight } = require('../functions/getRewards.js')
+const { checkIfUserExist, reinitializeToMidnight, dateWithoutMilliSeconds } = require('../functions/getRewards.js')
 
+let file = process.env.FILE
 
-
-let jsonData = fs.readFileSync('app/storage/users.json')  // read from our local json file
+let jsonData = fs.readFileSync(file)  // read from our local json file
 let users = JSON.parse(jsonData)   // parse the retrieve data into JSON format
 
 const startRedeeming = async (idUser, date) => {
@@ -23,12 +23,12 @@ const startRedeeming = async (idUser, date) => {
 
                     if (Date.parse(users[i].rewards[y].expiresAt) >= Date.parse(new Date())) { // if it is not expired
 
-                        users[i].rewards[y].redeemedAt = new Date()
+                        users[i].rewards[y].redeemedAt = dateWithoutMilliSeconds(new Date())
 
                         result = users[i].rewards[y]
                         users = JSON.stringify(users, null, 2);   // stringigy the users data to save it in the local file
-                        fs.writeFileSync('app/storage/users.json', users)  // save the data to the local json fil
 
+                        fs.writeFileSync(file, users)  // save the data to the local json fil
                         redeemed = true
 
                     } else {  // if it is expired

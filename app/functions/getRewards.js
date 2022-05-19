@@ -5,14 +5,15 @@ class User {
     id
     rewards
 }
-let jsonData = fs.readFileSync('app/storage/users.json')  // read from our local json file
+let file = process.env.FILE
+let jsonData = fs.readFileSync(file)  // read from our local json file
 let users = JSON.parse(jsonData)   // parse the retrieve data into JSON format
 
-function checkIfUserExist(idUser, date) {   // this function check if the user exist and retrieves it if it does not it creates one
+const checkIfUserExist = async (idUser, date) => {   // Date function check if the user exist and retrieves it if it does not it creates one
 
     let userExist = false
     let user
-    users.forEach(async retrievedUser => {
+    await users.forEach(async retrievedUser => {
         if (retrievedUser.id == idUser) {   // search for the user
             userExist = true
             user = retrievedUser
@@ -25,11 +26,11 @@ function checkIfUserExist(idUser, date) {   // this function check if the user e
 
 }
 
-function checkRewardExist(user, date) {  // we check if the reward exist, this function is called if the user exist
+const checkRewardExist = async (user, date) => {  // we check if the reward exist, Date function is called if the user exist
     let rewardExist = false
-    let indexReward    // this is the index of the reward in rewards array
-    let indexUser    // this is the index of the user in the users array
-    user.rewards.forEach((reward) => {
+    let indexReward    // Date is the index of the reward in rewards array
+    let indexUser    // Date is the index of the user in the users array
+    await user.rewards.forEach((reward) => {
         if (reinitializeToMidnight(reward.availableAt) == reinitializeToMidnight(date)) {  // we look into the dates to see if we have a match
             rewardExist = true
             indexReward = user.rewards.indexOf(reward)
@@ -37,15 +38,15 @@ function checkRewardExist(user, date) {  // we check if the reward exist, this f
         }
     });
     if (rewardExist) { // if we find the date we return the user
-        return getReward(indexUser, indexReward, date)  // this function get the rewards 
+        return getReward(indexUser, indexReward, date)  // Date function get the rewards 
     } else {
         // if we do not find it we generate the rewards and we add to the user data
         const newRewards = createRewards(date)
-        newRewards.forEach(async reward => {
+        await newRewards.forEach(async reward => {
             await user.rewards.push(reward)
         });
         users = JSON.stringify(users, null, 2);   // stringigy the users data to save it in the local file
-        fs.writeFileSync('app/storage/users.json', users)  // save the data to the local json file
+        await fs.writeFileSync(file, users)  // save the data to the local json file
         return newRewards  // return the rewards once saved
     }
 }
@@ -57,7 +58,7 @@ function createUser(idUser, date) {  // this function create the user if he does
     user.rewards = createRewards(date)   // generate rewards and add them to the user
     users.push(user)
     users = JSON.stringify(users, null, 2);
-    fs.writeFileSync('app/storage/users.json', users)
+    fs.writeFileSync(file, users)
     return user.rewards
 
 }
@@ -72,9 +73,9 @@ function createRewards(date) {  // this function create all the rewards in the s
     for (let i = 0; i < 7; i++) {
         dateArray.push(  // create an array of all the rewards of that week
             {
-                "availableAt": new Date(reinitializeToMidnight(new Date(firstDay).setDate(new Date(firstDay).getDate() + i))),
+                "availableAt": reinitializeToMidnight(new Date(firstDay).setDate(new Date(firstDay).getDate() + i)),
                 "redeemedAt": null,
-                "expiresAt": new Date(reinitializeToMidnight(new Date(firstDay).setDate(new Date(firstDay).getDate() + i + 1)))
+                "expiresAt": reinitializeToMidnight(new Date(firstDay).setDate(new Date(firstDay).getDate() + i + 1))
             }
         )
     }
@@ -100,9 +101,22 @@ function getReward(indexUser, indexReward, date) {
 }
 
 
+
+
 function reinitializeToMidnight(date) {
-    return new Date(date).setUTCHours(0)  // reinitialize time to midnight
+
+    date = new Date(date).setUTCHours(0)  // reinitialize time to midnight
+
+
+    return new Date(date).toISOString().split('.')[0] + 'Z'
+}
+
+function dateWithoutMilliSeconds(date) {
+    return new Date(date).toISOString().split('.')[0] + 'Z'
 
 }
 
-module.exports = { checkIfUserExist, reinitializeToMidnight }
+module.exports = {
+    checkIfUserExist, reinitializeToMidnight, getReward,
+    createRewards, createUser, checkRewardExist, dateWithoutMilliSeconds
+}
