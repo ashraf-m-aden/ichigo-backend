@@ -27,13 +27,17 @@ function checkIfUserExist(idUser, date) {   // this function check if the user e
 
 function checkRewardExist(user, date) {  // we check if the reward exist, this function is called if the user exist
     let rewardExist = false
+    let indexReward    // this is the index of the reward in rewards array
+    let indexUser    // this is the index of the user in the users array
     user.rewards.forEach((reward) => {
         if (reinitializeToMidnight(reward.availableAt) == reinitializeToMidnight(date)) {  // we look into the dates to see if we have a match
             rewardExist = true
+            indexReward = user.rewards.indexOf(reward)
+            indexUser = users.indexOf(user)
         }
     });
     if (rewardExist) { // if we find the date we return the user
-        return getRewards(date)  // this function get the rewards 
+        return getReward(indexUser, indexReward, date)  // this function get the rewards 
     } else {
         // if we do not find it we generate the rewards and we add to the user data
         const newRewards = createRewards(date)
@@ -61,10 +65,6 @@ function createUser(idUser, date) {  // this function create the user if he does
 function createRewards(date) {  // this function create all the rewards in the same week of searched reward
     date = reinitializeToMidnight(date)  // reinitialize time to midnight
 
-    return getRewards(date)   // return the final week
-}
-
-function getRewards(date) {
     let dateArray = []  // prepare array for the rewards
 
     let dayOfTheWeek = new Date(date).getDay() // retrieve the day of the week of the searched rewards
@@ -80,6 +80,25 @@ function getRewards(date) {
     }
     return dateArray   // return the final week
 }
+
+function getReward(indexUser, indexReward, date) {
+    date = reinitializeToMidnight(date)  // reinitialize time to midnight
+
+    let dateArray = []  // prepare array for the rewards
+
+    let dayOfTheWeek = new Date(date).getDay() // retrieve the day of the week of the searched rewards
+
+    let firstRewardIndex = indexReward - dayOfTheWeek   // we retrieve the index of the first reward of the week
+
+    for (let i = firstRewardIndex; i < (firstRewardIndex + 7); i++) {
+
+        dateArray.push(  // create an array of all the rewards of that week
+            users[indexUser].rewards[i]
+        )
+    }
+    return dateArray   // return the final week
+}
+
 
 function reinitializeToMidnight(date) {
     return new Date(date).setUTCHours(0)  // reinitialize time to midnight

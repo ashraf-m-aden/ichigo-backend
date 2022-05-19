@@ -94,7 +94,7 @@
       },
       {
         "availableAt": "2022-05-19T00:00:00.000Z",
-        "redeemedAt": null,
+        "redeemedAt": "2022-05-19T07:04:41.426Z",
         "expiresAt": "2022-05-20T00:00:00.000Z"
       },
       {
@@ -106,6 +106,41 @@
         "availableAt": "2022-05-21T00:00:00.000Z",
         "redeemedAt": null,
         "expiresAt": "2022-05-22T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2026-09-13T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2026-09-14T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2026-09-14T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2026-09-15T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2026-09-15T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2026-09-16T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2026-09-16T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2026-09-17T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2026-09-17T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2026-09-18T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2026-09-18T00:00:00.000Z",
+        "redeemedAt": null,
+        "expiresAt": "2026-09-19T00:00:00.000Z"
+      },
+      {
+        "availableAt": "2026-09-19T00:00:00.000Z",
+        "redeemedAt": "2022-05-19T07:24:02.351Z",
+        "expiresAt": "2026-09-20T00:00:00.000Z"
       }
     ]
   }

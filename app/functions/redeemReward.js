@@ -10,41 +10,49 @@ let users = JSON.parse(jsonData)   // parse the retrieve data into JSON format
 
 const startRedeeming = async (idUser, date) => {
     await checkIfUserExist(idUser, date)  // in case the reward does not exist we create it on the fly
-    let rewardDate = await reinitializeToMidnight(date)  // format the date to change the hour to midnight
 
-
+    let result   // if we redeem the reward , it will be assigned to this variable
+    let redeemed = false   // a boolean to check if we redeemed this time or not
     for (let i = 0; i < users.length; i++) {
-        if (users[i].id == idUser) {
-            for (let y = 0; y < users[i].rewards.length; y++) {
-                if ((new Date(users[i].rewards[y].availableAt)).toDateString() == (new Date(rewardDate)).toDateString()) {
 
-                    redeemReward(users[i].rewards[y].expiresAt) // we see if we can redeem the reward
+        if (users[i].id == idUser) {
+
+            for (let y = 0; y < users[i].rewards.length; y++) {
+
+                if ((reinitializeToMidnight(users[i].rewards[y].availableAt) == reinitializeToMidnight(date)) && users[i].rewards[y].redeemedAt == null) {
+
+                    if (Date.parse(users[i].rewards[y].expiresAt) >= Date.parse(new Date())) { // if it is not expired
+
+                        users[i].rewards[y].redeemedAt = new Date()
+
+                        result = users[i].rewards[y]
+                        users = JSON.stringify(users, null, 2);   // stringigy the users data to save it in the local file
+                        fs.writeFileSync('app/storage/users.json', users)  // save the data to the local json fil
+
+                        redeemed = true
+
+                    } else {  // if it is expired
+
+                        throw new Error
+                    }
+                } else if ((reinitializeToMidnight(users[i].rewards[y].availableAt) == reinitializeToMidnight(date)) && users[i].rewards[y].redeemedAt !== null) {  // if it is expired
+
+                    throw new Error
                 }
-                break  // we break the loop if we have a match
+
+                if (redeemed) {
+                    return result
+                }
+
             }
-            break  // we break the loop if we have a match
+
+            break  // if find the user break the loop
         }
 
     }
 }
 
-const redeemReward = (date) => {
-    if (new Date(date) >= new Date()) { // if it is not expired
-
-        users[i].rewards[y].redeemedAt = new Date()
-        console.log(users[i].rewards[y].redeemedAt);
-
-        users = JSON.stringify(users, null, 2);   // stringigy the users data to save it in the local file
-        fs.writeFileSync('app/storage/users.json', users)  // save the data to the local json file
-
-        return users[i].rewards[y]
-
-    } else {  // if it is expired
-
-        throw new Error
-    }
-}
 
 
 
-module.exports = { redeemReward, startRedeeming }
+module.exports = { startRedeeming }
